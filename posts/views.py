@@ -4,7 +4,6 @@ from django.core.paginator import Paginator
 from django.db.models import Count
 from django.shortcuts import reverse, render, redirect, get_object_or_404
 
-
 from .forms import PostForm, CommentForm
 from .models import *
 

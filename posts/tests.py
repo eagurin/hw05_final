@@ -6,7 +6,6 @@ from django.core.cache.backends import locmem
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
 from django.core.files.uploadedfile import SimpleUploadedFile
-import time
 
 from PIL import Image
 import tempfile
