@@ -1,0 +1,12 @@
+{% if user.is_authenticated %} 
+
+    <ul class="nav" id="myClassicTabShadow" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link {% if index %}active{% endif %}" href="{% url 'index' %}">Все авторы</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if follow %}active{% endif %}" href="/follow">Избранные авторы</a>
+        </li>
+    </ul>
+
+{% endif %}

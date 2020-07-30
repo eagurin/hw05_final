@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Последние обновления на сайте{% endblock %}
+
+
+{% block content %}
+{% load cache %}
+{% cache 20 index_page page.number %}
+<div class="row">
+<h1 class="mb-5">Последние обновления на сайте</h1>
+<ul class="list-unstyled">
+    {% for post in page %}
+    {% include "include/post_card.html" with author=post.author post=post show_add_comments_link=True %}
+    {% endfor %}
+</ul>
+</div>
+{% endcache %}
+    {% if page.has_other_pages %}
+    {% include "paginator.html" with items=page paginator=paginator %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,57 @@
+<div class="col-md-3 mb-3 mt-1">
+    <div class="card blue-grey lighten-5" style="display: flex;position: sticky;top: 40px;">
+      <div class="card-body">
+        <h4 class="card-title"><strong>
+          {{ author.get_full_name }}
+        </strong></h4>
+        <h5 class="blue-text pb-2"><strong>
+          @{{ author.username }}
+        </strong></h5>
+                  <!-- Twitter -->
+                  <a class="px-1 fa-lg tw-ic"><i class="fa fa-twitter"></i></a>
+                  <!-- Dribbble -->
+                  <a class="px-1 fa-lg fb-ic"><i class="fa fa-facebook"></i></a>
+                                    <!-- Dribbble -->
+                  <a class="px-1 fa-lg fb-ic"><i class="fa fa-vk"></i></a>
+                  <a class="px-1 fa-lg fb-ic"><i class="fa fa-instagram"></i></a>
+                  <a class="px-1 fa-lg fb-ic"><i class="fa fa-twitter"></i></a>
+      </div>
+
+      <ul class="list-group list-group-flush">
+
+        <li class="list-group-item blue-grey lighten-5"  style="border-bottom: none;">
+
+
+            Подписчиков: {{ followers }} <br />
+
+            Подписан: {{ following_authors }}
+
+
+        </li>
+        {% if paginator.count %}
+        <li class="list-group-item blue-grey lighten-5"  style="border-bottom: none;">
+            Записей: {{ paginator.count }}
+        </li>
+        {% endif %}
+          {% if user != author %}
+          {% if followers %}
+          <li class="list-group-item" style="border-bottom: none;margin-top: 0px;padding: 0;">
+          <a class="btn btn-lg btn-primary btn-block" 
+                  href="{% url 'profile_unfollow' author.username %}" role="button"> 
+                  Отписаться 
+          </a>
+        </li>
+          
+          {% else %}
+          <li class="list-group-item"  style="border-bottom: none;margin-top: 0px;padding: 0;">
+          <a class="btn btn-lg btn-primary btn-block" 
+                  href="{% url 'profile_follow' author.username %}" role="button">
+          Подписаться 
+          </a>
+        </li>
+          {% endif %}
+          {% endif %}
+
+      </ul>
+    </div>
+  </div>

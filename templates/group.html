@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Записи сообщества {{ group.title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+{% block header %}<h1 class="mb-5">{{ group.title }}</h1>{% endblock %}
+<br>
+<div style="display: none;"><p>{{ group.description }}</p></div>
+{% for post in page %}
+{% include "include/post_card.html" with author=post.author post=post show_add_comments_link=True %}
+{% endfor %}
+</div>
+    {% if page.has_other_pages %}
+    {% include "paginator.html" with items=page paginator=paginator %}
+{% endif %}
+{% endblock %}

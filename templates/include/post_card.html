@@ -1,0 +1,31 @@
+<div class="card mb-3 mt-1 shadow-sm">
+        <div class="view overlay fadeIn">
+        {% load thumbnail %}
+            {% thumbnail post.image "960x339" crop="center" upscale=True as im %}
+            <img id="post-img" class="card-img img-fluid" src="{{ im.url }}">
+            {% endthumbnail %}
+            <div class="mask waves-effect waves-light rgba-white-slight"></div>
+        </div>
+        
+            <div class="card-body">
+                        <p class="card-text" align="justify">
+                                <!-- Ссылка на страницу автора в атрибуте href; username автора в тексте ссылки -->
+                                <a href="/{{ post.author.username }}/"><strong class="d-block text-gray-dark h4 mb2 mt-2">@{{ post.author.username }}</strong></a>
+                                <br>
+                                {{ post.text|linebreaksbr }} 
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                        {%if show_add_comments_link%}
+                                            <a class="btn btn-primary btn-sm" href="{% url 'post' author.username post.id %}" role="button">Добавить комментарий</a>
+                                        {%endif%}
+                                        {% if user == author %}
+                                            <a class="btn btn-outline-primary btn-sm" href="{% url 'post_edit' author.username post.id %}"  role="button">Редактировать</a>
+                                        {%endif%}
+                                </div>
+                                <!-- Дата публикации  -->
+                                <small class="text-muted">{{ post.pub_date|date:"d M Y" }}</small>
+                        </div>
+                </div>
+                
+        </div>

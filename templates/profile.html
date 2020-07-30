@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block title %}Профиль{% endblock %} 
+
+
+{% block content %}
+<div class="row">
+    {% include "include/profile_card.html" with author=author paginator=paginator show_add_following_btn=False %}
+
+    <div class="col-lg-9 col-md-12">
+      <!-- Начало блока с отдельным постом -->
+      {% for post in page %}
+      {% include "include/post_card.html" with author=author post=post show_add_comments_link=True %}
+      {% endfor %} 
+    </div>
+  </div>
+      {% if page.has_other_pages %} 
+      {% include "paginator.html" with items=page paginator=paginator %} {% endif %}
+
+{% endblock %}
