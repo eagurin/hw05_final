@@ -52,14 +52,14 @@ class ProfileTest(TestCase):
         self.assertEqual(
             response.context['author'].username, self.user.username)
 
-    def test_new_post_user(self):
+    def test_auth_user_can_publish_post(self):
         self.client.force_login(self.user)
         self.post = Post.objects.create(text='Новый пост', author=self.user)
         response = self.client.get(
             reverse('profile', kwargs={'username': self.user.username}))
         self.assertEqual(Post.objects.count(), 1)
 
-    def test_new_post_gost(self):
+    def test_unauth_user_cant_publish_post(self):
         response = self.client.post(
             reverse('new_post'),
             data={'group': '', 'text': 'Новый пост'},
@@ -79,13 +79,13 @@ class ProfileTest(TestCase):
             response = self.client.get(url)
             self.assertContains(response, self.post.text)
 
-    def test_new_post_user_pages(self):
+    def test_post_appears_on_pages(self):
         self.client.force_login(self.user)
         self.post = Post.objects.create(text='Новый пост', author=self.user)
         self.assertEqual(self.post.text, 'Новый пост')
         self.url_check(self.post)
 
-    def test_edit_post_user(self):
+    def test_unauth_user_cant_edit_post(self):
         self.client.force_login(self.user)
         self.post = Post.objects.create(text='Новый пост', author=self.user)
         response = self.client.get(
@@ -112,7 +112,7 @@ class ProfileTest(TestCase):
         self.assertEqual(self.post.text, 'Измененный текст')
         self.url_check(self.post)
 
-    def test_404(self):
+    def test_page_error_404(self):
         response = self.client.get('/404/')
         self.assertEqual(response.status_code, 404)
 
@@ -144,7 +144,7 @@ class ProfileTest(TestCase):
             self.assertContains(response, '<img')
 
     @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-    def test_non_image_upload(self):
+    def test_image_non_upload(self):
         self.client.force_login(self.user)
         self.post = Post.objects.create(
             text='Новый пост',
@@ -168,7 +168,7 @@ class TestCache(TestCase):
         self.user = User.objects.create_user(
             username='sarah', email='connor.s@skynet.com', password='12345')
 
-    def test_index_cache_key(self):
+    def test_index_page_cache_key(self):
         self.client.force_login(self.user)
         self.post = Post.objects.create(text='Новый пост1', author=self.user)
         key = make_template_fragment_key('index_page', [1])
@@ -177,7 +177,7 @@ class TestCache(TestCase):
         cache.clear()
         self.assertFalse(bool(cache.get(key)))
 
-    def test_index_cache(self):
+    def test_index_page_cache(self):
         self.client.force_login(self.user)
         response = self.client.get(reverse('index'))
         self.post = Post.objects.create(text='Новый пост2', author=self.user)
@@ -199,7 +199,7 @@ class FollowTest(TestCase):
         self.user2 = User.objects.create_user(
             username='zhidkiy_terminator', email='zhidkiy_terminator@skynet.com', password='12345')
 
-    def test_follow(self):
+    def test_user_can_follow_unfollow(self):
         self.client.force_login(self.user)
         response = self.client.get(
             reverse(
@@ -217,7 +217,7 @@ class FollowTest(TestCase):
         )
         self.assertEqual(response.status_code, 200)
 
-    def test_follow_post(self):
+    def test_user_can_follow_post(self):
         self.client.force_login(self.user)
         response = self.client.get(
             reverse(

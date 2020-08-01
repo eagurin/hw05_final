@@ -21,7 +21,7 @@ class Post(models.Model):
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="posts")
     group = models.ForeignKey(
-        Group, on_delete=models.CASCADE, related_name="posts",
+        Group, on_delete=models.SET_NULL, related_name="posts",
         blank=True, null=True)
     image = models.ImageField(upload_to='posts/', blank=True, null=True)
 
@@ -47,3 +47,6 @@ class Follow(models.Model):
         User, on_delete=models.CASCADE, related_name='follower')
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='following')
+
+    class Meta:
+        unique_together = ('user', 'author')

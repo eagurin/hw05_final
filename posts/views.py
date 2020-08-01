@@ -133,8 +133,8 @@ def add_comment(request, username, post_id):
 
 @login_required
 def follow_index(request):
-    # информация о текущем пользователе доступна в переменной request.user
-    posts = Post.objects.filter(author__following__user=request.user).select_related(
+    posts = Post.objects.filter(
+        author__following__user=request.user).select_related(
         'author', 'group').order_by('-pub_date')
     paginator = Paginator(posts, 10)
     page_number = request.GET.get('page')
@@ -148,28 +148,27 @@ def follow_index(request):
 @login_required
 def profile_follow(request, username):
     author = get_object_or_404(User, username=username)
-    if request.user == author or Follow.objects.filter(
-            user=request.user, author=author).exists():
-        return redirect('profile', username=username)
-    else:
-        Follow.objects.create(user=request.user, author=author)
-        return redirect('profile', username=username)
+    if author == request.user or Follow.objects.filter(
+        user=request.user, author=author).exists():
+        return redirect(reverse("profile", kwargs={'username': username}))
+    follow = Follow.objects.create(user=request.user, author=author)
+    follow.save()
+    return redirect(reverse("profile", kwargs={'username': username}))
 
 
 @login_required
 def profile_unfollow(request, username):
     author = get_object_or_404(User, username=username)
-    if request.user == author:
-        return redirect('profile', username=username)
-    else:
-        following = Follow.objects.get(user=request.user, author=author)
-        following.delete()
-        return redirect('profile', username=username)
+    follow = Follow.objects.filter(user=request.user, author=author)
+    if Follow.objects.filter(user=request.user, author=author).exists():
+        follow.delete()
+    return redirect(reverse("profile", kwargs={'username': username}))
 
 
 def page_not_found(request, exception):
     '''Display error 404 page.'''
-    return render(request, 'misc/404.html', {'path': request.path}, status=404)
+    return render(
+        request, 'misc/404.html', {'path': request.path}, status=404)
 
 
 def server_error(request):
