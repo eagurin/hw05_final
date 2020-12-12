@@ -172,18 +172,11 @@ jQuery(($) => {
 
     updateTextFields($input) {
 
-      const hasValue = Boolean($input.val());
-      const hasPlaceholder = Boolean($input.attr('placeholder'));
-      const addOrRemove = hasValue || hasPlaceholder ? 'add' : 'remove';
-
       if($input.attr("type") !== "date") {
-        this.toggleActiveClass($input, addOrRemove); 
-      }
-      
-      if($input.attr("type") == "date" && !hasValue) {
-        $input.css("color", "transparent");
-
-      } else if($input.attr("type") == "date" && hasValue) {
+        const hasValue = Boolean($input.val().length);
+        const hasPlaceholder = Boolean($input.attr('placeholder'));
+        const addOrRemove = hasValue || hasPlaceholder ? 'add' : 'remove';
+  
         this.toggleActiveClass($input, addOrRemove);
       }
     }

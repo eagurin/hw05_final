@@ -30,6 +30,7 @@
   * The picker constructor that creates a blank picker.
   */
   function PickerConstructor( ELEMENT, NAME, COMPONENT, OPTIONS ) {
+  
     // If there’s no element, return the picker constructor.
     if ( !ELEMENT ) return PickerConstructor;
   
@@ -810,15 +811,15 @@
         var name;
   
         if ( SETTINGS.hiddenName === true ) {
-            name = $ELEMENT.attr('name');
-            $ELEMENT.attr('name', '');
+            name = ELEMENT.name;
+            ELEMENT.name = '';
         }
         else {
             name = [
                 typeof SETTINGS.hiddenPrefix == 'string' ? SETTINGS.hiddenPrefix : '',
                 typeof SETTINGS.hiddenSuffix == 'string' ? SETTINGS.hiddenSuffix : '_submit'
             ];
-            name = name[0] + $ELEMENT.attr('name') + name[1];
+            name = name[0] + ELEMENT.name + name[1];
         }
   
         P._hidden = $(
@@ -841,8 +842,7 @@
   
             // If the value changes, update the hidden input with the correct format.
             on('change.' + STATE.id, function() {
-                const pickerInput = $(ELEMENT).find('input.picker__input');
-                P._hidden.value = pickerInput.val() ?
+                P._hidden.value = ELEMENT.value ?
                     P.get('select', SETTINGS.formatSubmit) :
                     '';
             });

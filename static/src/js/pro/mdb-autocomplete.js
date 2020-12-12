@@ -121,8 +121,8 @@
 
     inputKeyupData() {
 
-      this.$input.on('focus input  keyup', e => {
-        
+      this.$input.on('keyup change focus', e => {
+
         if (e.which === this.enterCharCode) {
           if (!this.options.data.includes(this.$input.val())) {
             this.options.data.push(this.$input.val());

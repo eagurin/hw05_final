@@ -1426,3 +1426,13 @@ $.extend($.fn.datepicker.defaults, {
   }
 });
 
+$('.picker-opener').on('click', function (event) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  const elementOpenData = event.target.dataset.open;
+  const $input = $(`#${elementOpenData}`).datepicker();
+  const picker = $input.datepicker('picker');
+
+  picker.open();
+});

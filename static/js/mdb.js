@@ -1,6 +1,6 @@
 /*!
  * Material Design for Bootstrap 4
- *   Version: MDB PRO 4.19.2
+ *   Version: MDB PRO 4.19.1
  * 
  * 
  *   Copyright: Material Design for Bootstrap
@@ -1973,6 +1973,19 @@
         k.prototype = y, y.constructor = k, a(l, "Number", k)
     }
 }, function(t, e, i) {
+    "use strict";
+    var n = i(3),
+        l = i(90).trim;
+    n({
+        target: "String",
+        proto: !0,
+        forced: i(120)("trim")
+    }, {
+        trim: function() {
+            return l(this)
+        }
+    })
+}, function(t, e, i) {
     var n = i(3),
         l = i(16),
         o = i(41);
@@ -1985,19 +1998,6 @@
     }, {
         keys: function(t) {
             return o(l(t))
-        }
-    })
-}, function(t, e, i) {
-    "use strict";
-    var n = i(3),
-        l = i(90).trim;
-    n({
-        target: "String",
-        proto: !0,
-        forced: i(120)("trim")
-    }, {
-        trim: function() {
-            return l(this)
         }
     })
 }, function(t, e, i) {
@@ -2084,7 +2084,7 @@
     i.r(e), i.d(e, "default", (function() {
         return l
     }));
-    i(82), i(91), i(43), i(66), i(78), i(69), i(87), i(98), i(113);
+    i(82), i(91), i(43), i(66), i(78), i(69), i(87), i(98), i(112);
 
     function n(t, e) {
         for (var i = 0; i < e.length; i++) {
@@ -2424,7 +2424,7 @@
     i.r(e), i.d(e, "default", (function() {
         return o
     }));
-    i(82), i(91), i(43), i(122), i(66), i(96), i(112), i(69), i(123), i(87), i(113);
+    i(82), i(91), i(43), i(122), i(66), i(96), i(113), i(69), i(123), i(87), i(112);
     var n = i(121);
 
     function l(t, e) {
@@ -2524,7 +2524,7 @@
                 this.$materialSelect.on("mousedown", (function(t) {
                     3 === t.which && t.preventDefault()
                 })), this.$materialSelect.on("click", (function(e) {
-                    e.stopPropagation(), t.$mainLabel.addClass("active"), t.isSearchable && t.$searchInput.find(".search").focus(), t._updateDropdownScrollTop()
+                    e.stopPropagation(), t.$mainLabel.addClass("active"), t._updateDropdownScrollTop()
                 }))
             }
         }, {
@@ -2548,38 +2548,39 @@
             value: function() {
                 var t = this;
                 this.$materialSelect.on("keydown", (function(e) {
-                    if (e.which !== t.keyCodes.tab) {
-                        e.preventDefault();
-                        var i = $(e.target),
-                            n = e.which === t.keyCodes.arrowUp,
-                            l = e.which === t.keyCodes.arrowDown,
-                            o = e.which === t.keyCodes.enter,
-                            a = e.which === t.keyCodes.esc,
-                            r = l && e.altKey,
-                            s = n && e.altKey,
-                            c = e.which === t.keyCodes.home,
-                            u = e.which === t.keyCodes.end,
-                            h = e.which === t.keyCodes.space,
-                            d = t.$materialOptionsList.is(":visible");
-                        switch (!0) {
-                            case !d && (o || r):
-                            case t.isMultiple && !d && (l || n):
-                                return i.trigger("open"), t._updateDropdownScrollTop();
-                            case d && (a || s):
-                                return i.trigger("close");
-                            case !d && (l || n):
-                                return t._handleClosedArrowUpDownKey(e.which);
-                            case d && (l || n):
-                                return t._handleArrowUpDownKey(e.which);
-                            case d && c:
-                                return t._handleHomeKey();
-                            case d && u:
-                                return t._handleEndKey();
-                            case d && (o || h):
-                                return t._handleEnterKey(i);
-                            default:
-                                return t._handleLetterKey(e)
-                        }
+                    e.preventDefault();
+                    var i = $(e.target),
+                        n = e.which === t.keyCodes.tab,
+                        l = e.which === t.keyCodes.arrowUp,
+                        o = e.which === t.keyCodes.arrowDown,
+                        a = e.which === t.keyCodes.enter,
+                        r = e.which === t.keyCodes.esc,
+                        s = o && e.altKey,
+                        c = l && e.altKey,
+                        u = e.which === t.keyCodes.home,
+                        h = e.which === t.keyCodes.end,
+                        d = e.which === t.keyCodes.space,
+                        p = t.$materialOptionsList.is(":visible");
+                    switch (!0) {
+                        case n:
+                            return t._handleTabKey(i);
+                        case !p && (a || s):
+                        case t.isMultiple && !p && (o || l):
+                            return i.trigger("open"), t._updateDropdownScrollTop();
+                        case p && (r || c):
+                            return i.trigger("close");
+                        case !p && (o || l):
+                            return t._handleClosedArrowUpDownKey(e.which);
+                        case p && (o || l):
+                            return t._handleArrowUpDownKey(e.which);
+                        case p && u:
+                            return t._handleHomeKey();
+                        case p && h:
+                            return t._handleEndKey();
+                        case p && (a || d):
+                            return t._handleEnterKey(i);
+                        default:
+                            return t._handleLetterKey(e)
                     }
                 }))
             }
@@ -2743,6 +2744,11 @@
                     e = t.filter(":checked"),
                     i = this.$toggleAll.find("[type=checkbox]").is(":checked");
                 e.length !== t.length || i ? e.length < t.length && i && this.$toggleAll.find("[type=checkbox]").prop("checked", !1) : this.$toggleAll.find("[type=checkbox]").prop("checked", !0)
+            }
+        }, {
+            key: "_handleTabKey",
+            value: function(t) {
+                this._handleEscKey(t)
             }
         }, {
             key: "_handleEnterWithShiftKey",
@@ -3568,10 +3574,12 @@
             }, {
                 key: "updateTextFields",
                 value: function(t) {
-                    var e = Boolean(t.val()),
-                        i = Boolean(t.attr("placeholder")),
-                        n = e || i ? "add" : "remove";
-                    "date" !== t.attr("type") && this.toggleActiveClass(t, n), "date" != t.attr("type") || e ? "date" == t.attr("type") && e && this.toggleActiveClass(t, n) : t.css("color", "transparent")
+                    if ("date" !== t.attr("type")) {
+                        var e = Boolean(t.val().length),
+                            i = Boolean(t.attr("placeholder")),
+                            n = e || i ? "add" : "remove";
+                        this.toggleActiveClass(t, n)
+                    }
                 }
             }, {
                 key: "validateField",
@@ -4034,7 +4042,7 @@
 }, function(t, e, i) {
     "use strict";
     i.r(e);
-    i(43), i(122), i(66), i(112), i(123);
+    i(43), i(122), i(66), i(113), i(123);
 
     function n(t, e) {
         for (var i = 0; i < e.length; i++) {
@@ -4115,7 +4123,7 @@
                 key: "inputKeyupData",
                 value: function() {
                     var t = this;
-                    this.$input.on("focus input  keyup", (function(e) {
+                    this.$input.on("keyup change focus", (function(e) {
                         if (e.which === t.enterCharCode) return t.options.data.includes(t.$input.val()) || t.options.data.push(t.$input.val()), t.$autocompleteWrap.find(".selected").trigger("mousedown"), t.$autocompleteWrap.empty(), t.inputBlur(), t.count = -1, t.nextScrollHeight = -45, t.count;
                         var i = t.$input.val();
                         if (t.$autocompleteWrap.empty(), i.length) {
@@ -4201,16 +4209,17 @@
     }(jQuery)
 }, function(t, e) {
     var i = !1;
-    $(window).on("load", (function() {
-        i = !0
-    }));
 
     function n() {
-        $("#mdb-preloader").fadeOut("slow"), $("body").removeAttr("aria-busy"), $("#preloader-markup").html("")
+        $("#mdb-preloader").fadeOut("slow"), $("body").removeAttr("aria-busy")
     }
-    jQuery((function(t) {
-        t("body").attr("aria-busy", !0), t("#preloader-markup").html('\n<div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">\n<span class="sr-only">Loading...</span>\n</div>\n'), i ? n() : t(window).on("load", (function() {
-            n()
+    $(window).on("load", (function() {
+        i = !0
+    })), jQuery((function(t) {
+        t("body").attr("aria-busy", !0), t("#preloader-markup").load("./dev/dist/mdb-addons/preloader.html", (function() {
+            i ? n() : t(window).on("load", (function() {
+                n()
+            }))
         }))
     }))
 }, function(t, e, i) {
@@ -4654,7 +4663,7 @@
 }, function(t, e, i) {
     "use strict";
     i.r(e);
-    i(68), i(82), i(91), i(43), i(107), i(78), i(167), i(168), i(112), i(109);
+    i(68), i(82), i(91), i(43), i(107), i(78), i(167), i(168), i(113), i(109);
 
     function n(t, e) {
         var i = Object.keys(t);
@@ -5049,7 +5058,7 @@
 }, function(t, e, i) {
     "use strict";
     i.r(e);
-    i(82), i(43), i(107), i(66), i(108), i(86), i(62), i(69), i(97), i(87), i(113), i(109);
+    i(82), i(43), i(107), i(66), i(108), i(86), i(62), i(69), i(97), i(87), i(112), i(109);
     var n = i(126);
 
     function l(t, e) {
@@ -7260,7 +7269,7 @@
     "use strict";
     (function(t) {
         var e, n;
-        i(68), i(70), i(71), i(211), i(91), i(107), i(66), i(54), i(78), i(108), i(86), i(112), i(62), i(119), i(69), i(72), i(117), i(98), i(109), i(73);
+        i(68), i(70), i(71), i(211), i(91), i(107), i(66), i(54), i(78), i(108), i(86), i(113), i(62), i(119), i(69), i(72), i(117), i(98), i(109), i(73);
 
         function l(t) {
             return (l = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(t) {
@@ -8657,9 +8666,7 @@
                                 b.$root.removeClass(m.focused), t.stopPropagation()
                             },
                             "mousedown click": function(i) {
-                                (function(e) {
-                                    return t(e).hasClass("picker__select--year") || t(e).hasClass("picker__select--month")
-                                })(i.target) || i.preventDefault();
+                                i.preventDefault();
                                 var n = r(i, e);
                                 n != b.$holder[0] && (i.stopPropagation(), "mousedown" != i.type || t(n).is("input, select, textarea, button, option") || (i.preventDefault(), b.$holder.eq(0).focus()))
                             }
@@ -8777,7 +8784,7 @@
     i.r(e),
         function(t) {
             var e;
-            i(68), i(70), i(71), i(82), i(43), i(66), i(54), i(78), i(96), i(86), i(62), i(97), i(72), i(73);
+            i(68), i(70), i(71), i(82), i(43), i(66), i(54), i(78), i(96), i(86), i(118), i(62), i(97), i(72), i(73);
 
             function n(t) {
                 return (n = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(t) {
@@ -8816,9 +8823,8 @@
                             constructor: y,
                             $node: v,
                             start: function() {
-                                return p && p.start ? b : (p.methods = {}, p.start = !0, p.open = !1, p.type = e.type, e.autofocus = e == u(), e.readOnly = !f.editable, e.id = e.id || p.id, "text" != e.type && (e.type = "text"), b.component = new c(b, f), b.$root = t('\n                    <div class="'.concat(m.picker, ' datepicker" id="').concat(e.id, '_root" />\n                ')), s(b.$root[0], "hidden", !0), b.$holder = t(x()).appendTo(b.$root), w(), f.formatSubmit && (!0 === f.hiddenName ? (g = v.attr("name"), v.attr("name", "")) : g = (g = ["string" == typeof f.hiddenPrefix ? f.hiddenPrefix : "", "string" == typeof f.hiddenSuffix ? f.hiddenSuffix : "_submit"])[0] + v.attr("name") + g[1], b._hidden = t('<input type=hidden name="' + g + '"' + (v.data("value") || e.value ? ' value="' + b.get("select", f.formatSubmit) + '"' : "") + ">")[0], v.on("change." + p.id, (function() {
-                                    var i = t(e).find("input.picker__input");
-                                    b._hidden.value = i.val() ? b.get("select", f.formatSubmit) : ""
+                                return p && p.start ? b : (p.methods = {}, p.start = !0, p.open = !1, p.type = e.type, e.autofocus = e == u(), e.readOnly = !f.editable, e.id = e.id || p.id, "text" != e.type && (e.type = "text"), b.component = new c(b, f), b.$root = t('\n                    <div class="'.concat(m.picker, ' datepicker" id="').concat(e.id, '_root" />\n                ')), s(b.$root[0], "hidden", !0), b.$holder = t(x()).appendTo(b.$root), w(), f.formatSubmit && (!0 === f.hiddenName ? (g = e.name, e.name = "") : g = (g = ["string" == typeof f.hiddenPrefix ? f.hiddenPrefix : "", "string" == typeof f.hiddenSuffix ? f.hiddenSuffix : "_submit"])[0] + e.name + g[1], b._hidden = t('<input type=hidden name="' + g + '"' + (v.data("value") || e.value ? ' value="' + b.get("select", f.formatSubmit) + '"' : "") + ">")[0], v.on("change." + p.id, (function() {
+                                    b._hidden.value = e.value ? b.get("select", f.formatSubmit) : ""
                                 }))), v.data(n, b).addClass(m.input).val(v.data("value") ? b.get("select", f.format) : t(e).find("input").val()), f.inline ? v.siblings("i").on("click", (function() {
                                     new Popper(t(e), b.$root, {
                                         placement: "bottom-end",
@@ -9191,7 +9197,7 @@
     "use strict";
     (function(t, e) {
         var n;
-        i(68), i(70), i(71), i(82), i(173), i(91), i(231), i(107), i(66), i(54), i(78), i(96), i(142), i(133), i(100), i(131), i(108), i(86), i(232), i(233), i(111), i(235), i(220), i(221), i(134), i(112), i(62), i(115), i(119), i(69), i(97), i(72), i(117), i(98), i(109), i(73);
+        i(68), i(70), i(71), i(82), i(173), i(91), i(231), i(107), i(66), i(54), i(78), i(96), i(142), i(133), i(100), i(131), i(108), i(86), i(232), i(233), i(111), i(235), i(220), i(221), i(134), i(113), i(62), i(115), i(119), i(69), i(97), i(72), i(117), i(98), i(109), i(73);
 
         function l(t) {
             return (l = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(t) {
@@ -15868,7 +15874,7 @@
     "use strict";
     (function(t) {
         var e, n;
-        i(68), i(70), i(71), i(82), i(173), i(107), i(66), i(54), i(142), i(100), i(131), i(108), i(111), i(220), i(221), i(112), i(62), i(69), i(72), i(98), i(237), i(109), i(73);
+        i(68), i(70), i(71), i(82), i(173), i(107), i(66), i(54), i(142), i(100), i(131), i(108), i(111), i(220), i(221), i(113), i(62), i(69), i(72), i(98), i(237), i(109), i(73);
 
         function l(t) {
             return (l = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(t) {
@@ -20771,12 +20777,16 @@
                     l = i.charAt(0).toUpperCase() + i.slice(1);
                 this.component.settings.inline || t.find(".picker__header").prepend('\n        <div class="picker__date-display">\n          <div class="picker__title-display">SELECT DATE</div>\n          <div class="picker__date-container">\n            <span class="picker__weekday-display">'.concat(n, ',</span>\n            <span class="picker__month-display">').concat(l, '</span>\n            <span class="picker__day-display">').concat(e, "</span>\n          </div>\n        </div>\n      "))
             }
-        })
+        }), $(".picker-opener").on("click", (function(t) {
+            t.preventDefault(), t.stopPropagation();
+            var e = t.target.dataset.open;
+            $("#".concat(e)).datepicker().datepicker("picker").open()
+        }))
     }).call(this, i(95)(t))
 }, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , function(t, e, i) {
     "use strict";
     i.r(e);
-    i(229), i(230), i(236), i(174), i(175), i(176), i(208), i(150), i(151), i(152), i(153), i(68), i(70), i(71), i(222), i(107), i(66), i(54), i(100), i(108), i(86), i(223), i(224), i(112), i(62), i(115), i(127), i(69), i(97), i(72), i(87), i(98), i(109), i(73);
+    i(229), i(230), i(236), i(174), i(175), i(176), i(208), i(150), i(151), i(152), i(153), i(68), i(70), i(71), i(222), i(107), i(66), i(54), i(100), i(108), i(86), i(223), i(224), i(113), i(62), i(115), i(127), i(69), i(97), i(72), i(87), i(98), i(109), i(73);
 
     function n(t) {
         return (n = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(t) {
@@ -22316,193 +22326,193 @@
             w = a ? 350 : 1,
             k = ['<div class="clockpicker_container clockpicker picker">', '<div class="picker__holder">', '<div class="picker__frame">', '<div class="picker__wrap">', '<div class="picker__box">', '<div class="picker__date-display">', '<div class="clockpicker-display">', '<div class="clockpicker-display-column">', '<span class="clockpicker-span-hours text-primary" tabindex="1" aria-label="Choose hour"></span>', ":", '<span class="clockpicker-span-minutes" tabindex="2" aria-label="Choose minute"></span>', "</div>", '<div class="clockpicker-display-column clockpicker-display-am-pm">', '<div class="clockpicker-am-pm-block"></div>', "</div>", "</div>", "</div>", '<div class="picker__calendar-container">', '<div class="clockpicker-plate">', '<div class="clockpicker-canvas"></div>', '<div class="clockpicker-dial clockpicker-hours"></div>', '<div class="clockpicker-dial clockpicker-minutes clockpicker-dial-out"></div>', "</div>", '<div class="picker__footer">', "</div>", "</div>", "</div>", "</div>", "</div>", "</div>"].join("");
 
-        function S(e, i) {
-            var l, a, r = this,
-                h = t(k),
-                S = h.find(".clockpicker-plate"),
-                C = h.find(".picker__holder"),
-                T = h.find(".clockpicker-hours"),
-                O = h.find(".clockpicker-minutes"),
-                A = h.find(".clockpicker-am-pm-block"),
-                P = e.children("i"),
-                E = e.children("input"),
-                I = (E.prop("type"), t("label[for=" + E.attr("id") + "]")),
-                _ = this,
-                $ = {};
-            if ($.default = e.attr("default") || "", $.fromnow = e.attr("fromnow") || 0, $.donetext = e.attr("donetext") || "OK", $.cleartext = e.attr("cleartext") || "Clear", $.closetext = e.attr("closetext") || "Close", $.autoclose = e.attr("autoclose") || !1, $.darktheme = e.attr("darktheme") || !1, $.twelvehour = e.attr("twelvehour") || !1, $.vibrate = e.attr("vibrate") || !0, $.hourstep = e.attr("hourstep") || 1, $.minutestep = e.attr("minutestep") || 1, $.inputshowpicker = e.attr("inputshowpicker") || !1, $.min = e.attr("min") || 0, $.max = e.attr("max") || 0, this.id = (a = ++m + "", (l = "cp") ? l + a : a), this.element = e, this.holder = C, this.options = $, this.isAppended = !1, this.isShown = !1, this.currentView = "hours", this.input = E, this.icon = P, this.label = I, this.popover = h, this.plate = S, this.hoursView = T, this.minutesView = O, this.amPmBlock = A, this.spanHours = h.find(".clockpicker-span-hours"), this.spanMinutes = h.find(".clockpicker-span-minutes"), this.footer = h.find(".picker__footer"), this.amOrPm = "", this.isTwelvehour = $.twelvehour, this.minTime = $.min, this.maxTime = $.max, this.minMinutes = 0, this.maxMinutes = 59, this.minHours = 0, this.maxHours = 23, this.isInvalidTimeScope = !1, this.hoursBeforeChange = null, this.minutesBeforeChange = null, $.minutestep > 20) $.minutestep = 20;
-            else if (1 != $.minutestep && $.minutestep % 5) {
-                var D = $.minutestep % 5;
-                D >= 2.5 ? $.minutestep += 5 - D : $.minutestep -= D
+        function S(e) {
+            var i, l, a = this,
+                r = t(k),
+                h = r.find(".clockpicker-plate"),
+                S = r.find(".picker__holder"),
+                C = r.find(".clockpicker-hours"),
+                T = r.find(".clockpicker-minutes"),
+                O = r.find(".clockpicker-am-pm-block"),
+                A = e.children("i"),
+                P = e.children("input"),
+                E = (P.prop("type"), t("label[for=" + P.attr("id") + "]")),
+                I = this,
+                _ = {};
+            if (_.default = e.attr("default") || "", _.fromnow = e.attr("fromnow") || 0, _.donetext = e.attr("donetext") || "OK", _.cleartext = e.attr("cleartext") || "Clear", _.closetext = e.attr("closetext") || "Close", _.autoclose = e.attr("autoclose") || !1, _.darktheme = e.attr("darktheme") || !1, _.twelvehour = e.attr("twelvehour") || !1, _.vibrate = e.attr("vibrate") || !0, _.hourstep = e.attr("hourstep") || 1, _.minutestep = e.attr("minutestep") || 1, _.inputshowpicker = e.attr("inputshowpicker") || !1, _.min = e.attr("min") || 0, _.max = e.attr("max") || 0, this.id = (l = ++m + "", (i = "cp") ? i + l : l), this.element = e, this.holder = S, this.options = _, this.isAppended = !1, this.isShown = !1, this.currentView = "hours", this.input = P, this.icon = A, this.label = E, this.popover = r, this.plate = h, this.hoursView = C, this.minutesView = T, this.amPmBlock = O, this.spanHours = r.find(".clockpicker-span-hours"), this.spanMinutes = r.find(".clockpicker-span-minutes"), this.footer = r.find(".picker__footer"), this.amOrPm = "", this.isTwelvehour = _.twelvehour, this.minTime = _.min, this.maxTime = _.max, this.minMinutes = 0, this.maxMinutes = 59, this.minHours = 0, this.maxHours = 23, this.isInvalidTimeScope = !1, this.hoursBeforeChange = null, this.minutesBeforeChange = null, _.minutestep > 20) _.minutestep = 20;
+            else if (1 != _.minutestep && _.minutestep % 5) {
+                var $ = _.minutestep % 5;
+                $ >= 2.5 ? _.minutestep += 5 - $ : _.minutestep -= $
             }
             this.icon.removeClass("active"), this.input.on("focus", (function() {
-                return r.icon.addClass("active")
+                return a.icon.addClass("active")
             })), this.input.on("blur", (function() {
-                return r.icon.removeClass("active")
+                return a.icon.removeClass("active")
             }));
-            var L = function(t) {
+            var D = function(t) {
                 var e = t + "Time";
-                if (r[e] = $[t].split(":"), 4 === r[e][1].length) {
-                    var i = r[e][1].replace(/\d+/g, "").toUpperCase();
-                    r[e][1] = r[e][1].replace(/\D+/g, ""), "PM" === i && (r[e][0] = parseInt(r[e][0]) + 12)
+                if (a[e] = _[t].split(":"), 4 === a[e][1].length) {
+                    var i = a[e][1].replace(/\d+/g, "").toUpperCase();
+                    a[e][1] = a[e][1].replace(/\D+/g, ""), "PM" === i && (a[e][0] = parseInt(a[e][0]) + 12)
                 }
-                if (2 !== r[e].length) r[e] = null;
+                if (2 !== a[e].length) a[e] = null;
                 else
-                    for (var n = 0; n < r[e].length; n++) r[e][n] = +r[e][n]
+                    for (var n = 0; n < a[e].length; n++) a[e][n] = +a[e][n]
             };
-            $.min && (L("min"), this.minMinutes = this.minTime[1], this.minHours = this.minTime[0]), $.max && (L("max"), this.minHours > this.maxHours || this.minHours === this.maxHours && this.minMinutes >= this.maxMinutes ? this.maxTime = 0 : (this.maxMinutes = this.maxTime[1], this.maxHours = this.maxTime[0])), $.twelvehour && (t('<span class="am" aria-label="change to am" tabindex="3">AM</span>').on("click", (function() {
-                _.togglePeriod("AM")
+            _.min && (D("min"), this.minMinutes = this.minTime[1], this.minHours = this.minTime[0]), _.max && (D("max"), this.minHours > this.maxHours || this.minHours === this.maxHours && this.minMinutes >= this.maxMinutes ? this.maxTime = 0 : (this.maxMinutes = this.maxTime[1], this.maxHours = this.maxTime[0])), _.twelvehour && (t('<span class="am" aria-label="change to am" tabindex="3">AM</span>').on("click", (function() {
+                I.togglePeriod("AM")
             })).appendTo(this.amPmBlock), t('<span class="pm" aria-label="change to pm" tabindex="4">PM</span>').on("click", (function() {
-                _.togglePeriod("PM")
-            })).appendTo(this.amPmBlock)), $.darktheme && h.addClass("darktheme"), t('<button type="button" class="btn btn-flat clockpicker-button clear-button" aria-label="Clear input" tabindex="' + ($.twelvehour ? "5" : "3") + '">' + $.cleartext + "</button>").click(t.proxy(this.clearInput, this)).appendTo(this.footer), t('<button type="button" class="btn btn-flat clockpicker-button close-button" aria-label="Close picker" tabindex="' + ($.twelvehour ? "6" : "4") + '">' + $.closetext + "</button>").click(t.proxy(this.closeInput, this)).appendTo(this.footer), t('<button type="button" class="btn btn-flat clockpicker-button done-button" aria-label="save" tabindex="' + ($.twelvehour ? "7" : "5") + '">' + $.donetext + "</button>").click(t.proxy(this.done, this)).appendTo(this.footer), this.spanHours.click(t.proxy(this.toggleView, this, "hours")), this.spanMinutes.click(t.proxy(this.toggleView, this, "minutes"));
-            var R, V, F, W, j = t('<div class="clockpicker-tick"></div>');
-            if ($.twelvehour)
-                for (R = 0; R < 12; R += $.hourstep) V = j.clone(), F = R / 6 * Math.PI, W = g, V.css("font-size", "140%"), V.css({
-                    left: v + Math.sin(F) * W - b,
-                    top: v - Math.cos(F) * W - b
-                }), V.html(0 === R ? 12 : R), T.append(V), V.on(s, z), this.disableOutOfRangeElements();
+                I.togglePeriod("PM")
+            })).appendTo(this.amPmBlock)), _.darktheme && r.addClass("darktheme"), t('<button type="button" class="btn btn-flat clockpicker-button clear-button" aria-label="Clear input" tabindex="' + (_.twelvehour ? "5" : "3") + '">' + _.cleartext + "</button>").click(t.proxy(this.clearInput, this)).appendTo(this.footer), t('<button type="button" class="btn btn-flat clockpicker-button close-button" aria-label="Close picker" tabindex="' + (_.twelvehour ? "6" : "4") + '">' + _.closetext + "</button>").click(t.proxy(this.closeInput, this)).appendTo(this.footer), t('<button type="button" class="btn btn-flat clockpicker-button done-button" aria-label="save" tabindex="' + (_.twelvehour ? "7" : "5") + '">' + _.donetext + "</button>").click(t.proxy(this.done, this)).appendTo(this.footer), this.spanHours.click(t.proxy(this.toggleView, this, "hours")), this.spanMinutes.click(t.proxy(this.toggleView, this, "minutes"));
+            var L, R, V, F, W = t('<div class="clockpicker-tick"></div>');
+            if (_.twelvehour)
+                for (L = 0; L < 12; L += _.hourstep) R = W.clone(), V = L / 6 * Math.PI, F = g, R.css("font-size", "140%"), R.css({
+                    left: v + Math.sin(V) * F - b,
+                    top: v - Math.cos(V) * F - b
+                }), R.html(0 === L ? 12 : L), C.append(R), R.on(s, N), this.disableOutOfRangeElements();
             else
-                for (R = 0; R < 24; R += $.hourstep) {
-                    V = j.clone(), F = R / 6 * Math.PI;
-                    var H = R > 0 && R < 13;
-                    W = H ? y : g, V.css({
-                        left: v + Math.sin(F) * W - b,
-                        top: v - Math.cos(F) * W - b
-                    }), H && V.css("font-size", "120%"), V.html(0 === R ? "00" : R), T.append(V), V.on(s, z), this.disableOutOfRangeElements()
+                for (L = 0; L < 24; L += _.hourstep) {
+                    R = W.clone(), V = L / 6 * Math.PI;
+                    var j = L > 0 && L < 13;
+                    F = j ? y : g, R.css({
+                        left: v + Math.sin(V) * F - b,
+                        top: v - Math.cos(V) * F - b
+                    }), j && R.css("font-size", "120%"), R.html(0 === L ? "00" : L), C.append(R), R.on(s, N), this.disableOutOfRangeElements()
                 }
-            var N = Math.max($.minutestep, 5);
-            for (R = 0; R < 60; R += N)
-                for (R = 0; R < 60; R += 5) V = j.clone(), F = R / 30 * Math.PI, V.css({
-                    left: v + Math.sin(F) * g - b,
-                    top: v - Math.cos(F) * g - b
-                }), V.css("font-size", "140%"), V.html(f(R)), O.append(V), V.on(s, z);
+            var H = Math.max(_.minutestep, 5);
+            for (L = 0; L < 60; L += H)
+                for (L = 0; L < 60; L += 5) R = W.clone(), V = L / 30 * Math.PI, R.css({
+                    left: v + Math.sin(V) * g - b,
+                    top: v - Math.cos(V) * g - b
+                }), R.css("font-size", "140%"), R.html(f(L)), T.append(R), R.on(s, N);
 
-            function z(t, e) {
-                var i = S.offset(),
+            function N(t, e) {
+                var i = h.offset(),
                     l = /^touch/.test(t.type),
                     a = i.left + v,
                     r = i.top + v,
                     s = (l ? t.originalEvent.touches[0] : t).pageX - a,
-                    h = (l ? t.originalEvent.touches[0] : t).pageY - r,
-                    d = Math.sqrt(s * s + h * h),
-                    p = !1;
-                if (!e || !(d < g - b || d > g + b)) {
+                    d = (l ? t.originalEvent.touches[0] : t).pageY - r,
+                    p = Math.sqrt(s * s + d * d),
+                    f = !1;
+                if (!e || !(p < g - b || p > g + b)) {
                     t.preventDefault();
-                    var f = setTimeout((function() {
-                        _.popover.addClass("clockpicker-moving")
+                    var m = setTimeout((function() {
+                        I.popover.addClass("clockpicker-moving")
                     }), 200);
-                    o && S.append(_.canvas), _.setHand(s, h, !e, !0), n.off(c).on(c, (function(t) {
+                    o && h.append(I.canvas), I.setHand(s, d, !e, !0), n.off(c).on(c, (function(t) {
                         t.preventDefault();
                         var e = /^touch/.test(t.type),
                             i = (e ? t.originalEvent.touches[0] : t).pageX - a,
                             n = (e ? t.originalEvent.touches[0] : t).pageY - r;
-                        (p || i !== s || n !== h) && (p = !0, _.setHand(i, n, !1, !0))
+                        (f || i !== s || n !== d) && (f = !0, I.setHand(i, n, !1, !0))
                     })), n.off(u).on(u, (function(t) {
                         n.off(u), t.preventDefault();
                         var i = /^touch/.test(t.type),
                             l = (i ? t.originalEvent.changedTouches[0] : t).pageX - a,
                             o = (i ? t.originalEvent.changedTouches[0] : t).pageY - r;
-                        (e || p) && l === s && o === h && _.setHand(l, o);
-                        _.hours, _.minutes;
-                        var d = _.amOrPm,
-                            m = _.maxHours,
-                            v = _.minHours;
-                        _.maxMinutes, _.minMinutes;
-                        "PM" === d && (v < 12 && (v = 0), v > 12 && (v -= 12), m > 12 && (m -= 12)), _.isInvalidTimeScope ? (_.isInvalidTimeScope = !1, t.stopPropagation()) : "hours" === _.currentView ? _.toggleView("minutes", w / 2) : "hours" != _.currentView && $.autoclose && (_.minutesView.addClass("clockpicker-dial-out"), setTimeout((function() {
-                            _.done()
-                        }), w / 2), _.currentHours = 0), S.prepend(B), clearTimeout(f), _.popover.removeClass("clockpicker-moving"), n.off(c)
-                    })), _.disableOutOfRangeElements()
+                        (e || f) && l === s && o === d && I.setHand(l, o);
+                        I.hours, I.minutes;
+                        var p = I.amOrPm,
+                            v = I.maxHours,
+                            g = I.minHours;
+                        I.maxMinutes, I.minMinutes;
+                        "PM" === p && (g < 12 && (g = 0), g > 12 && (g -= 12), v > 12 && (v -= 12)), I.isInvalidTimeScope ? (I.isInvalidTimeScope = !1, t.stopPropagation()) : "hours" === I.currentView ? I.toggleView("minutes", w / 2) : "hours" != I.currentView && _.autoclose && (I.minutesView.addClass("clockpicker-dial-out"), setTimeout((function() {
+                            I.done()
+                        }), w / 2), I.currentHours = 0), h.prepend(z), clearTimeout(m), I.popover.removeClass("clockpicker-moving"), n.off(c)
+                    })), I.disableOutOfRangeElements()
                 }
             }
-            if (S.on(s, (function(e) {
-                    0 === t(e.target).closest(".clockpicker-tick").length && z(e, !0)
+            if (h.on(s, (function(e) {
+                    0 === t(e.target).closest(".clockpicker-tick").length && N(e, !0)
                 })), o) {
-                var B = h.find(".clockpicker-canvas"),
-                    Z = d("svg");
-                Z.setAttribute("class", "clockpicker-svg"), Z.setAttribute("width", x), Z.setAttribute("height", x);
-                var Y = d("g");
-                Y.setAttribute("transform", "translate(" + v + "," + v + ")");
-                var X = d("circle");
-                X.setAttribute("class", "clockpicker-canvas-bearing"), X.setAttribute("cx", 0), X.setAttribute("cy", 0), X.setAttribute("r", 2);
-                var q = d("line");
-                q.setAttribute("x1", 0), q.setAttribute("y1", 0);
+                var z = r.find(".clockpicker-canvas"),
+                    B = d("svg");
+                B.setAttribute("class", "clockpicker-svg"), B.setAttribute("width", x), B.setAttribute("height", x);
+                var Z = d("g");
+                Z.setAttribute("transform", "translate(" + v + "," + v + ")");
+                var Y = d("circle");
+                Y.setAttribute("class", "clockpicker-canvas-bearing"), Y.setAttribute("cx", 0), Y.setAttribute("cy", 0), Y.setAttribute("r", 2);
+                var X = d("line");
+                X.setAttribute("x1", 0), X.setAttribute("y1", 0);
+                var q = d("circle");
+                q.setAttribute("class", "clockpicker-canvas-bg"), q.setAttribute("r", b);
                 var U = d("circle");
-                U.setAttribute("class", "clockpicker-canvas-bg"), U.setAttribute("r", b);
-                var G = d("circle");
-                G.setAttribute("class", "clockpicker-canvas-fg"), G.setAttribute("r", 5), Y.appendChild(q), Y.appendChild(U), Y.appendChild(G), Y.appendChild(X), Z.appendChild(Y), B.append(Z), this.hand = q, this.bg = U, this.fg = G, this.bearing = X, this.g = Y, this.canvas = B
+                U.setAttribute("class", "clockpicker-canvas-fg"), U.setAttribute("r", 5), Z.appendChild(X), Z.appendChild(q), Z.appendChild(U), Z.appendChild(Y), B.appendChild(Z), z.append(B), this.hand = X, this.bg = q, this.fg = U, this.bearing = Y, this.g = Z, this.canvas = z
             }
-            var K = function(t) {
-                var e = _.hours,
-                    i = _.isTwelvehour,
-                    n = _.amOrPm,
-                    l = _.currentView,
-                    o = _.maxHours,
-                    a = _.minHours,
-                    r = _.maxMinutes,
-                    s = _.minMinutes;
+            var G = function(t) {
+                var e = I.hours,
+                    i = I.isTwelvehour,
+                    n = I.amOrPm,
+                    l = I.currentView,
+                    o = I.maxHours,
+                    a = I.minHours,
+                    r = I.maxMinutes,
+                    s = I.minMinutes;
                 return i && "hours" === l && "PM" === n && t < 12 && (t += 12), i && "minutes" === l && "PM" === n && (e += 12), "hours" === l && (t > o || t < a) || ("minutes" === l && e == a && t < s || "minutes" === l && e == o && t > r)
             };
-            h.find(".clockpicker-span-hours").on("keydown", (function(t) {
-                9 === t.keyCode && t.shiftKey && (t.preventDefault(), h.find(".done-button").focus())
-            })), h.find(".done-button").on("keydown", (function(t) {
-                9 !== t.keyCode || t.shiftKey || (t.preventDefault(), h.find(".clockpicker-span-hours").focus())
-            })), P.attr("tabindex", "0"), P.attr("aria-haspopup", "true"), P.on("keydown", (function(t) {
-                32 !== t.keyCode && 13 !== t.keyCode || p(r.show(), 100)
-            })), r.spanHours.on("keydown", (function(t) {
+            r.find(".clockpicker-span-hours").on("keydown", (function(t) {
+                9 === t.keyCode && t.shiftKey && (t.preventDefault(), r.find(".done-button").focus())
+            })), r.find(".done-button").on("keydown", (function(t) {
+                9 !== t.keyCode || t.shiftKey || (t.preventDefault(), r.find(".clockpicker-span-hours").focus())
+            })), A.attr("tabindex", "0"), A.attr("aria-haspopup", "true"), A.on("keydown", (function(t) {
+                32 !== t.keyCode && 13 !== t.keyCode || p(a.show(), 100)
+            })), a.spanHours.on("keydown", (function(t) {
                 var e;
                 if (38 === t.keyCode) {
-                    if ("hours" !== r.currentView && r.toggleView("hours"), r.isTwelvehour)
-                        if (11 === r.hours) {
-                            e = r.hours + 1;
-                            var i = "AM" === r.amOrPm ? "PM" : "AM";
-                            _.togglePeriod(i)
-                        } else e = 12 === r.hours ? 1 : r.hours + 1;
-                    else e = 23 === r.hours ? 0 : r.hours + 1;
-                    K(e) && (r.isTwelvehour && r.minHours <= 12 && _.togglePeriod("AM"), e = r.minHours), r.hours = e, r.spanHours.html(f(r.hours)), r.resetClock()
+                    if ("hours" !== a.currentView && a.toggleView("hours"), a.isTwelvehour)
+                        if (11 === a.hours) {
+                            e = a.hours + 1;
+                            var i = "AM" === a.amOrPm ? "PM" : "AM";
+                            I.togglePeriod(i)
+                        } else e = 12 === a.hours ? 1 : a.hours + 1;
+                    else e = 23 === a.hours ? 0 : a.hours + 1;
+                    G(e) && (a.isTwelvehour && a.minHours <= 12 && I.togglePeriod("AM"), e = a.minHours), a.hours = e, a.spanHours.html(f(a.hours)), a.resetClock()
                 }
                 if (40 === t.keyCode) {
-                    if ("hours" !== r.currentView && r.toggleView("hours"), r.isTwelvehour)
-                        if (1 === r.hours) e = 12;
-                        else if (12 === r.hours) {
-                        e = r.hours - 1;
-                        var n = "AM" === r.amOrPm ? "PM" : "AM";
-                        _.togglePeriod(n)
-                    } else e = r.hours - 1;
-                    else e = 0 === r.hours ? 23 : r.hours - 1;
-                    K(e) && (r.isTwelvehour && r.maxHours >= 12 && _.togglePeriod("PM"), e = r.maxHours), r.hours = e, r.spanHours.html(f(r.hours)), r.resetClock()
+                    if ("hours" !== a.currentView && a.toggleView("hours"), a.isTwelvehour)
+                        if (1 === a.hours) e = 12;
+                        else if (12 === a.hours) {
+                        e = a.hours - 1;
+                        var n = "AM" === a.amOrPm ? "PM" : "AM";
+                        I.togglePeriod(n)
+                    } else e = a.hours - 1;
+                    else e = 0 === a.hours ? 23 : a.hours - 1;
+                    G(e) && (a.isTwelvehour && a.maxHours >= 12 && I.togglePeriod("PM"), e = a.maxHours), a.hours = e, a.spanHours.html(f(a.hours)), a.resetClock()
                 }
-                13 === t.keyCode && r.toggleView("hours")
-            })), r.isTwelvehour && (h.find(".am").on("keydown", (function(t) {
-                13 === t.keyCode && (t.preventDefault(), _.togglePeriod("AM"))
-            })), h.find(".pm").on("keydown", (function(t) {
-                13 === t.keyCode && (t.preventDefault(), _.togglePeriod("PM"))
-            }))), r.spanMinutes.on("keydown", (function(t) {
+                13 === t.keyCode && a.toggleView("hours")
+            })), a.isTwelvehour && (r.find(".am").on("keydown", (function(t) {
+                13 === t.keyCode && (t.preventDefault(), I.togglePeriod("AM"))
+            })), r.find(".pm").on("keydown", (function(t) {
+                13 === t.keyCode && (t.preventDefault(), I.togglePeriod("PM"))
+            }))), a.spanMinutes.on("keydown", (function(t) {
                 var e;
                 if (38 === t.keyCode) {
-                    if ("minutes" !== r.currentView && r.toggleView("minutes"), e = 59 === r.minutes ? 0 : r.minutes + 1, K(e)) {
-                        var i = r.hours,
-                            n = r.amOrPm,
-                            l = r.minHours,
-                            o = r.maxHours,
-                            a = r.minMinutes;
-                        "PM" === n && (i += 12), i === l && (e = a), i === o && (e = 0)
+                    if ("minutes" !== a.currentView && a.toggleView("minutes"), e = 59 === a.minutes ? 0 : a.minutes + 1, G(e)) {
+                        var i = a.hours,
+                            n = a.amOrPm,
+                            l = a.minHours,
+                            o = a.maxHours,
+                            r = a.minMinutes;
+                        "PM" === n && (i += 12), i === l && (e = r), i === o && (e = 0)
                     }
-                    r.minutes = e, r.spanMinutes.html(f(r.minutes)), r.resetClock()
+                    a.minutes = e, a.spanMinutes.html(f(a.minutes)), a.resetClock()
                 }
                 if (40 === t.keyCode) {
-                    if ("minutes" !== r.currentView && r.toggleView("minutes"), e = 0 === r.minutes ? 59 : r.minutes - 1, K(e)) {
-                        var s = r.hours,
-                            c = r.amOrPm,
-                            u = r.minHours,
-                            h = r.maxHours,
-                            d = r.maxMinutes;
+                    if ("minutes" !== a.currentView && a.toggleView("minutes"), e = 0 === a.minutes ? 59 : a.minutes - 1, G(e)) {
+                        var s = a.hours,
+                            c = a.amOrPm,
+                            u = a.minHours,
+                            h = a.maxHours,
+                            d = a.maxMinutes;
                         "PM" === c && (s += 12), s === u && (e = 59), s === h && (e = d)
                     }
-                    r.minutes = e, r.spanMinutes.html(f(r.minutes)), r.resetClock()
+                    a.minutes = e, a.spanMinutes.html(f(a.minutes)), a.resetClock()
                 }
-                13 === t.keyCode && r.toggleView("minutes")
-            })), h.find(".close-button").on("click", (function() {
-                r.close()
-            })), ($.inputshowpicker ? E : P).on("click.clockpicker", p(t.proxy(r.show, r), 100)), M(this.options.init)
+                13 === t.keyCode && a.toggleView("minutes")
+            })), r.find(".close-button").on("click", (function() {
+                a.close()
+            })), (_.inputshowpicker ? P : A).on("click.clockpicker", p(t.proxy(a.show, a), 100)), M(this.options.init)
         }
 
         function M(t) {
@@ -22655,9 +22665,7 @@
             function n() {
                 var n = t(this),
                     l = n.data("clockpicker");
-                l ? (Object.keys(e).length && t.each(e, (function(t, e) {
-                    n.data().clockpicker.options[t] = e
-                })), "function" == typeof l[e] && l[e].apply(l, i)) : n.data("clockpicker", new S(n))
+                l ? "function" == typeof l[e] && l[e].apply(l, i) : n.data("clockpicker", new S(n))
             }
             if (1 == this.length) {
                 var l = n.apply(this[0]);

@@ -354,19 +354,10 @@
             symbol: this.options.single.multi.value !== undefined ? this.options.single.multi.value.symbol : null
           });
 
-          // set first ghost slider controller at the beginning of the slider
-          if (i===0) {
-            $ghost.val($ghost.attr('min'));
-          } else {
-            $ghost.val($ghost.attr('max'));
-          }
+          $ghost.val($ghost.attr('max'));
           $ghost.addClass('mdbMultiRange ghost');
           $ghost.prev().css('background-color', this.options.single.multi.bgThumbColor);
           this.$range.after($ghost);
-
-          if (i < this.options.single.multi.rangeLength - 1) {
-            $ghost.addClass('nonSlider');
-          }
 
           if (this.options.single.multi.countingTarget !== null && this.options.single.multi.countingTarget !== undefined && typeof this.options.single.multi.countingTarget === 'object' && this.options.single.multi.counting) {
 
@@ -386,10 +377,6 @@
             });
           }
         }
-
-        // hide original slider controller when multiRange sliders 
-        this.$range.css('display', 'none');
-        this.$range.prop('disabled', true);
       }
     }
   }

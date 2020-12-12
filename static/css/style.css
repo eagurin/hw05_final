@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+.oval {
+    width: 50px;
+    height: 35px;
+    background: red;
+    border-radius: 105px / 30px;
+    text-align: center;
+    line-height: 35px;
+    color: #ffffff;
+    font-weight: 500;
+}
+.navbar-brand {
+    display: inline-flex;
+    line-height: 35px;
+    }
+
+
+#myClassicTabShadow {
+        float: left;
+        margin-left: 0;
+        margin-right: auto;
+        color: #333;
+        }

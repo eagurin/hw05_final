@@ -205,19 +205,4 @@ label.btn input[type="checkbox"] {
       }
     }
   }
-  &:focus:not(:checked) {
-    + label::before {
-      border-color: #007bff;
-      box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);  
-    }
-  }
-
-  &:focus:checked {
-    + label::before {
-      border-color: #007bff;
-      box-shadow: 3px 2px 0 0 rgba(0,123,255,0.25);  
-      border-top: $checkbox-label-before-after-border-width solid transparent;
-      border-left: $checkbox-label-before-after-border-width solid transparent;
-    }
-  }
 }

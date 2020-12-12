@@ -1,6 +1,6 @@
 /*!
  * Material Design for Bootstrap 4
- *   Version: MDB LITE 4.19.2
+ *   Version: MDB LITE 4.19.1
  * 
  * 
  *   Copyright: Material Design for Bootstrap
@@ -1973,6 +1973,19 @@
         S.prototype = y, y.constructor = S, a(r, "Number", S)
     }
 }, function(t, e, n) {
+    "use strict";
+    var i = n(3),
+        r = n(90).trim;
+    i({
+        target: "String",
+        proto: !0,
+        forced: n(120)("trim")
+    }, {
+        trim: function() {
+            return r(this)
+        }
+    })
+}, function(t, e, n) {
     var i = n(3),
         r = n(16),
         o = n(41);
@@ -1985,19 +1998,6 @@
     }, {
         keys: function(t) {
             return o(r(t))
-        }
-    })
-}, function(t, e, n) {
-    "use strict";
-    var i = n(3),
-        r = n(90).trim;
-    i({
-        target: "String",
-        proto: !0,
-        forced: n(120)("trim")
-    }, {
-        trim: function() {
-            return r(this)
         }
     })
 }, function(t, e, n) {
@@ -2084,7 +2084,7 @@
     n.r(e), n.d(e, "default", (function() {
         return r
     }));
-    n(82), n(91), n(43), n(66), n(78), n(69), n(87), n(98), n(113);
+    n(82), n(91), n(43), n(66), n(78), n(69), n(87), n(98), n(112);
 
     function i(t, e) {
         for (var n = 0; n < e.length; n++) {
@@ -2424,7 +2424,7 @@
     n.r(e), n.d(e, "default", (function() {
         return o
     }));
-    n(82), n(91), n(43), n(122), n(66), n(96), n(112), n(69), n(123), n(87), n(113);
+    n(82), n(91), n(43), n(122), n(66), n(96), n(113), n(69), n(123), n(87), n(112);
     var i = n(121);
 
     function r(t, e) {
@@ -2524,7 +2524,7 @@
                 this.$materialSelect.on("mousedown", (function(t) {
                     3 === t.which && t.preventDefault()
                 })), this.$materialSelect.on("click", (function(e) {
-                    e.stopPropagation(), t.$mainLabel.addClass("active"), t.isSearchable && t.$searchInput.find(".search").focus(), t._updateDropdownScrollTop()
+                    e.stopPropagation(), t.$mainLabel.addClass("active"), t._updateDropdownScrollTop()
                 }))
             }
         }, {
@@ -2548,38 +2548,39 @@
             value: function() {
                 var t = this;
                 this.$materialSelect.on("keydown", (function(e) {
-                    if (e.which !== t.keyCodes.tab) {
-                        e.preventDefault();
-                        var n = $(e.target),
-                            i = e.which === t.keyCodes.arrowUp,
-                            r = e.which === t.keyCodes.arrowDown,
-                            o = e.which === t.keyCodes.enter,
-                            a = e.which === t.keyCodes.esc,
-                            s = r && e.altKey,
-                            l = i && e.altKey,
-                            c = e.which === t.keyCodes.home,
-                            u = e.which === t.keyCodes.end,
-                            d = e.which === t.keyCodes.space,
-                            f = t.$materialOptionsList.is(":visible");
-                        switch (!0) {
-                            case !f && (o || s):
-                            case t.isMultiple && !f && (r || i):
-                                return n.trigger("open"), t._updateDropdownScrollTop();
-                            case f && (a || l):
-                                return n.trigger("close");
-                            case !f && (r || i):
-                                return t._handleClosedArrowUpDownKey(e.which);
-                            case f && (r || i):
-                                return t._handleArrowUpDownKey(e.which);
-                            case f && c:
-                                return t._handleHomeKey();
-                            case f && u:
-                                return t._handleEndKey();
-                            case f && (o || d):
-                                return t._handleEnterKey(n);
-                            default:
-                                return t._handleLetterKey(e)
-                        }
+                    e.preventDefault();
+                    var n = $(e.target),
+                        i = e.which === t.keyCodes.tab,
+                        r = e.which === t.keyCodes.arrowUp,
+                        o = e.which === t.keyCodes.arrowDown,
+                        a = e.which === t.keyCodes.enter,
+                        s = e.which === t.keyCodes.esc,
+                        l = o && e.altKey,
+                        c = r && e.altKey,
+                        u = e.which === t.keyCodes.home,
+                        d = e.which === t.keyCodes.end,
+                        f = e.which === t.keyCodes.space,
+                        h = t.$materialOptionsList.is(":visible");
+                    switch (!0) {
+                        case i:
+                            return t._handleTabKey(n);
+                        case !h && (a || l):
+                        case t.isMultiple && !h && (o || r):
+                            return n.trigger("open"), t._updateDropdownScrollTop();
+                        case h && (s || c):
+                            return n.trigger("close");
+                        case !h && (o || r):
+                            return t._handleClosedArrowUpDownKey(e.which);
+                        case h && (o || r):
+                            return t._handleArrowUpDownKey(e.which);
+                        case h && u:
+                            return t._handleHomeKey();
+                        case h && d:
+                            return t._handleEndKey();
+                        case h && (a || f):
+                            return t._handleEnterKey(n);
+                        default:
+                            return t._handleLetterKey(e)
                     }
                 }))
             }
@@ -2743,6 +2744,11 @@
                     e = t.filter(":checked"),
                     n = this.$toggleAll.find("[type=checkbox]").is(":checked");
                 e.length !== t.length || n ? e.length < t.length && n && this.$toggleAll.find("[type=checkbox]").prop("checked", !1) : this.$toggleAll.find("[type=checkbox]").prop("checked", !0)
+            }
+        }, {
+            key: "_handleTabKey",
+            value: function(t) {
+                this._handleEscKey(t)
             }
         }, {
             key: "_handleEnterWithShiftKey",
@@ -3457,10 +3463,12 @@
             }, {
                 key: "updateTextFields",
                 value: function(t) {
-                    var e = Boolean(t.val()),
-                        n = Boolean(t.attr("placeholder")),
-                        i = e || n ? "add" : "remove";
-                    "date" !== t.attr("type") && this.toggleActiveClass(t, i), "date" != t.attr("type") || e ? "date" == t.attr("type") && e && this.toggleActiveClass(t, i) : t.css("color", "transparent")
+                    if ("date" !== t.attr("type")) {
+                        var e = Boolean(t.val().length),
+                            n = Boolean(t.attr("placeholder")),
+                            i = e || n ? "add" : "remove";
+                        this.toggleActiveClass(t, i)
+                    }
                 }
             }, {
                 key: "validateField",
@@ -3896,7 +3904,7 @@
 }, function(t, e, n) {
     "use strict";
     n.r(e);
-    n(43), n(122), n(66), n(112), n(123);
+    n(43), n(122), n(66), n(113), n(123);
 
     function i(t, e) {
         for (var n = 0; n < e.length; n++) {
@@ -3977,7 +3985,7 @@
                 key: "inputKeyupData",
                 value: function() {
                     var t = this;
-                    this.$input.on("focus input  keyup", (function(e) {
+                    this.$input.on("keyup change focus", (function(e) {
                         if (e.which === t.enterCharCode) return t.options.data.includes(t.$input.val()) || t.options.data.push(t.$input.val()), t.$autocompleteWrap.find(".selected").trigger("mousedown"), t.$autocompleteWrap.empty(), t.inputBlur(), t.count = -1, t.nextScrollHeight = -45, t.count;
                         var n = t.$input.val();
                         if (t.$autocompleteWrap.empty(), n.length) {
@@ -4063,16 +4071,17 @@
     }(jQuery)
 }, function(t, e) {
     var n = !1;
-    $(window).on("load", (function() {
-        n = !0
-    }));
 
     function i() {
-        $("#mdb-preloader").fadeOut("slow"), $("body").removeAttr("aria-busy"), $("#preloader-markup").html("")
+        $("#mdb-preloader").fadeOut("slow"), $("body").removeAttr("aria-busy")
     }
-    jQuery((function(t) {
-        t("body").attr("aria-busy", !0), t("#preloader-markup").html('\n<div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">\n<span class="sr-only">Loading...</span>\n</div>\n'), n ? i() : t(window).on("load", (function() {
-            i()
+    $(window).on("load", (function() {
+        n = !0
+    })), jQuery((function(t) {
+        t("body").attr("aria-busy", !0), t("#preloader-markup").load("./dev/dist/mdb-addons/preloader.html", (function() {
+            n ? i() : t(window).on("load", (function() {
+                i()
+            }))
         }))
     }))
 }, function(t, e, n) {
@@ -4516,7 +4525,7 @@
 }, function(t, e, n) {
     "use strict";
     n.r(e);
-    n(68), n(82), n(91), n(43), n(107), n(78), n(167), n(168), n(112), n(109);
+    n(68), n(82), n(91), n(43), n(107), n(78), n(167), n(168), n(113), n(109);
 
     function i(t, e) {
         var n = Object.keys(t);
@@ -4911,7 +4920,7 @@
 }, function(t, e, n) {
     "use strict";
     n.r(e);
-    n(82), n(43), n(107), n(66), n(108), n(86), n(62), n(69), n(97), n(87), n(113), n(109);
+    n(82), n(43), n(107), n(66), n(108), n(86), n(62), n(69), n(97), n(87), n(112), n(109);
     var i = n(126);
 
     function r(t, e) {
@@ -7112,7 +7121,7 @@
     "use strict";
     (function(t) {
         var e, i;
-        n(68), n(70), n(71), n(211), n(91), n(107), n(66), n(54), n(78), n(108), n(86), n(112), n(62), n(119), n(69), n(72), n(117), n(98), n(109), n(73);
+        n(68), n(70), n(71), n(211), n(91), n(107), n(66), n(54), n(78), n(108), n(86), n(113), n(62), n(119), n(69), n(72), n(117), n(98), n(109), n(73);
 
         function r(t) {
             return (r = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(t) {

@@ -2,7 +2,7 @@
 
 /*!
  * Material Design for Bootstrap 4
- *   Version: MDB LITE 4.19.2
+ *   Version: MDB LITE 4.19.1
  * 
  * 
  *   Copyright: Material Design for Bootstrap
@@ -7861,6 +7861,10 @@ body.scrollable {
     top: 3.6rem
 }
 
+.md-form>input[type="date"]:not(.browser-default) {
+    color: transparent
+}
+
 .md-form>input[type="date"]:not(.browser-default)+label {
     -webkit-transform-origin: 0 0;
     transform-origin: 0 0
@@ -8584,6 +8588,10 @@ body.scrollable {
     outline: none
 }
 
+.md-form.md-bg>input[type="date"]:not(.browser-default) {
+    color: transparent
+}
+
 .md-form.md-bg>input[type="date"]:not(.browser-default)+label {
     -webkit-transform-origin: 0 0;
     transform-origin: 0 0
@@ -8695,11 +8703,6 @@ body.scrollable {
 .md-form .form-control {
     -webkit-box-sizing: border-box !important;
     box-sizing: border-box !important
-}
-
-.md-form .form-control.valid+label,
-.md-form .form-control.invalid+label {
-    overflow: visible
 }
 
 .md-form .input-prefix {
@@ -12695,13 +12698,6 @@ label.btn input[type="radio"]:checked+label:after .disabled-material {
     background-color: rgba(66, 133, 244, 0.2)
 }
 
-.form-check-input[type="radio"]:focus+label:before,
-label.btn input[type="radio"]:focus+label:before {
-    border-color: #80bdff;
-    -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25)
-}
-
 .md-disabled::after {
     background-color: rgba(66, 133, 244, 0.5) !important;
     border-color: rgba(66, 133, 244, 0.2) !important
@@ -12932,22 +12928,6 @@ label.btn input[type="checkbox"]:disabled:checked+label:before {
 label.btn input[type="checkbox"]:disabled:checked+label:after {
     background-color: #bdbdbd;
     border-color: #bdbdbd
-}
-
-.form-check-input[type="checkbox"]:focus:not(:checked)+label::before,
-label.btn input[type="checkbox"]:focus:not(:checked)+label::before {
-    border-color: #007bff;
-    -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25)
-}
-
-.form-check-input[type="checkbox"]:focus:checked+label::before,
-label.btn input[type="checkbox"]:focus:checked+label::before {
-    border-color: #007bff;
-    -webkit-box-shadow: 3px 2px 0 0 rgba(0, 123, 255, 0.25);
-    box-shadow: 3px 2px 0 0 rgba(0, 123, 255, 0.25);
-    border-top: 2px solid transparent;
-    border-left: 2px solid transparent
 }
 
 .select-wrapper .select-dropdown {
@@ -13562,11 +13542,6 @@ select:disabled {
             line-height: 2.5rem
         }
     }
-}
-
-.md-form .prefix~.mdb-select {
-    width: calc(100% - 2.5rem);
-    margin-left: 2.5rem
 }
 
 .switch label {

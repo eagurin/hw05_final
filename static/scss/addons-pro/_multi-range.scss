@@ -10,37 +10,6 @@
     margin: 0;
     vertical-align: top;
 
-    // firefox fix to prevent selection of the input instead of the thumb element
-    // when having multiple sliders
-    pointer-events:none;
-    overflow: visible;
-
-    &::-webkit-slider-runnable-track,
-    &::-webkit-slider-thumb {
-      pointer-events: all;
-    }
-    
-    &::-ms-thumb,
-    &::-ms-track  {
-      pointer-events: all;
-    }
-    
-    .nonSlider {
-      background: none !important;
-    }
-
-    &::-moz-range-thumb {
-      pointer-events: all;
-      z-index: 2;
-    }
-
-    &.nonSlider::-moz-range-track {
-      height: 0;
-      background: none;
-      display: none;
-      pointer-events: none;
-    }
-
     &.original {
       position: absolute;
 

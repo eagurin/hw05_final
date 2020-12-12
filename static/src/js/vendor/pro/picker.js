@@ -681,13 +681,7 @@
     function prepareElementRoot() {
         aria( P.$root[0], 'hidden', true )
     }
-
-    /**
-     * Check if target is year/month select.
-     */
-    function isPickerSelect(target) {
-        return $(target).hasClass('picker__select--year') || $(target).hasClass('picker__select--month');
-    }
+  
   
      /**
       * Prepare the holder picker element with all bindings.
@@ -718,9 +712,8 @@
                 // When something within the holder is clicked, stop it
                 // from bubbling to the doc.
                 'mousedown click': function( event ) {
-                    if (!isPickerSelect(event.target)) {
-                        event.preventDefault();
-                    }
+
+                    event.preventDefault();
   
                     var target = getRealEventTarget( event, ELEMENT )
   
